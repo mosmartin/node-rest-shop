@@ -1,11 +1,9 @@
 const express = require('express');
+const productRoutes = require('./api/routes/products');
+
 const app = express();
 
 // middleware
-app.use((req, res, next) => {
-    res.status(200).json({
-        message: "it Works!"
-    });
-});
+app.use('/products', productRoutes);
 
 module.exports = app;
