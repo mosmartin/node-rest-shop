@@ -23,4 +23,13 @@ router.get('/:productId', (req, res, next) => {
     });
 });
 
+router.put('/:productId', (req, res, next) => {
+    const id = req.params.productId;
+
+    res.status(200).json({
+        message: 'Success Update',
+        id: id
+    });
+});
+
 module.exports = router;
