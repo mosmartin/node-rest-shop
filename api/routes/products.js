@@ -27,7 +27,16 @@ router.put('/:productId', (req, res, next) => {
     const id = req.params.productId;
 
     res.status(200).json({
-        message: 'Success Update',
+        message: 'Successfully Updated',
+        id: id
+    });
+});
+
+router.delete('/:productId', (req, res, next) => {
+    const id = req.params.productId;
+
+    res.status(200).json({
+        message: 'Successfully Deleted',
         id: id
     });
 });
