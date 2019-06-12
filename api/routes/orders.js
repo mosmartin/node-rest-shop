@@ -23,4 +23,13 @@ router.get('/:orderId', (req, res, next) => {
     });
 });
 
+router.delete('/:orderId', (req, res, next) => {
+    const id = req.params.orderId;
+
+    res.status(200).json({
+        message: 'Success',
+        id: id
+    });
+});
+
 module.exports = router;
