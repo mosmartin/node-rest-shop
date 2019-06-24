@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // handle cors errors
 app.use((req, res, next) => {
@@ -21,6 +22,12 @@ app.use((req, res, next) => {
 // route handlers
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
+
+// connect to mongo db
+mongoose.connect("mongodb://localhost:27017/myapp", {
+  useNewUrlParser: true,
+  useMongoClient: true
+});
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
