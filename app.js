@@ -1,11 +1,12 @@
-const express = require('express');
-const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
-
+const express = require("express");
 const app = express();
+const morgan = require("morgan");
+
+const productRoutes = require("./api/routes/products");
+const orderRoutes = require("./api/routes/orders");
 
 // route handler middleware
-app.use('/products', productRoutes);
-app.use('/orders', orderRoutes);
+app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 
 module.exports = app;
