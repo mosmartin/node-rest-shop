@@ -4,12 +4,21 @@ const Product = require("../models/products");
 
 const router = express.Router();
 
+// get all products
 router.get("/", (req, res, next) => {
-  res.status(200).json({
-    message: "Handling GET requests to /products"
-  });
+  Product.find()
+    .exec()
+    .then(docs => {
+      console.log(`\n=== FROM DATABASE ===\n ${docs}`);
+      res.status(200).json(docs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
 });
 
+// create a product
 router.post("/", (req, res, next) => {
   // create a product object
   const product = new Product({
@@ -22,7 +31,7 @@ router.post("/", (req, res, next) => {
   product
     .save()
     .then(result => {
-      console.log(`\n=== FROM DATABASE === ${result}`);
+      console.log(`\n=== FROM DATABASE ===\n ${result}`);
 
       res.status(201).json({
         message: "Product Successfully Created.",
@@ -31,11 +40,11 @@ router.post("/", (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-
       res.status(500).json({ error: err });
     });
 });
 
+// get a product by id
 router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
@@ -57,6 +66,7 @@ router.get("/:productId", (req, res, next) => {
     });
 });
 
+// update a product
 router.put("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
@@ -66,6 +76,7 @@ router.put("/:productId", (req, res, next) => {
   });
 });
 
+// delete a product
 router.delete("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
