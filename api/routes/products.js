@@ -51,7 +51,7 @@ router.get("/:productId", (req, res, next) => {
   Product.findById(id)
     .exec()
     .then(doc => {
-      console.log(`\n=== FROM DB ===\n ${doc}`);
+      console.log(`\n=== FROM DATABASE ===\n ${doc}`);
 
       // check of doc is null
       if (doc) {
@@ -83,7 +83,7 @@ router.delete("/:productId", (req, res, next) => {
   Product.remove({ _id: id })
     .exec()
     .then(result => {
-      console.log(`\n=== FROM DB ===\n ${result}`);
+      console.log(`\n=== FROM DATABASE ===\n ${result}`);
       res.status(200).json(result);
     })
     .catch(err => {
