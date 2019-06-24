@@ -22,23 +22,39 @@ router.post("/", (req, res, next) => {
   product
     .save()
     .then(result => {
-      console.log(result);
-    })
-    .catch(err => console.log(err));
+      console.log(`\n=== FROM DATABASE === ${result}`);
 
-  res.status(201).json({
-    message: "Product Successfully Created.",
-    data: product
-  });
+      res.status(201).json({
+        message: "Product Successfully Created.",
+        data: result
+      });
+    })
+    .catch(err => {
+      console.log(err);
+
+      res.status(500).json({ error: err });
+    });
 });
 
 router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
-  res.status(200).json({
-    message: "Success",
-    id: id
-  });
+  Product.findById(id)
+    .exec()
+    .then(doc => {
+      console.log(`\n=== FROM DB ===\n ${doc}`);
+
+      // check of doc is null
+      if (doc) {
+        res.status(200).json(doc);
+      } else {
+        res.status(404).json({ message: "id not found." });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
 });
 
 router.put("/:productId", (req, res, next) => {
