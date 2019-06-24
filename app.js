@@ -24,10 +24,7 @@ const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 
 // connect to mongo db
-mongoose.connect("mongodb://localhost:27017/myapp", {
-  useNewUrlParser: true,
-  useMongoClient: true
-});
+mongoose.connect("mongodb://localhost:27017/eShop", { useNewUrlParser: true });
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
