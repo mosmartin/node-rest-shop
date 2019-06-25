@@ -21,10 +21,10 @@ router.get("/", (req, res, next) => {
             name: doc.name,
             price: doc.price,
             request: {
-              type: 'GET',
+              type: "GET",
               url: `http://localhost:3000/products/${doc._id}`
             }
-          }
+          };
         })
       };
 
@@ -55,7 +55,16 @@ router.post("/", (req, res, next) => {
 
       res.status(201).json({
         message: "Product Successfully Created.",
-        data: result
+        // data: result
+        data: {
+          _id: result._id,
+          name: result.name,
+          price: result.price,
+          request: {
+            type: "GET",
+            url: `http://localhost:3000/products/${result._id}`
+          }
+        }
       });
     })
     .catch(err => {
