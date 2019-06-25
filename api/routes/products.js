@@ -51,8 +51,6 @@ router.post("/", (req, res, next) => {
   product
     .save()
     .then(result => {
-      console.log(`\n=== FROM DATABASE ===\n ${result}`);
-
       res.status(201).json({
         message: "Product Successfully Created.",
         // data: result
@@ -80,13 +78,19 @@ router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
   Product.findById(id)
+    .select("_id name price")
     .exec()
     .then(doc => {
-      console.log(`\n=== FROM DATABASE ===\n ${doc}`);
-
       // check of doc is null
       if (doc) {
-        res.status(200).json(doc);
+        res.status(200).json({
+          data: doc,
+          request: {
+            type: "GET",
+            description: "Get all products",
+            url: `http://localhost:3000/products/`
+          }
+        });
       } else {
         res.status(404).json({ message: "id not found." });
       }
