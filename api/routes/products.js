@@ -115,8 +115,13 @@ router.patch("/:productId", (req, res, next) => {
   Product.update({ _id: id }, { $set: updOps })
     .exec()
     .then(result => {
-      console.log(`\n=== FROM DATABASE ===\n ${result}`);
-      res.status(200).json(result);
+      res.status(200).json({
+        message: "Product successfully updated",
+        request: {
+          type: "GET",
+          url: `http://localhost:3000/products/${id}`
+        }
+      });
     })
     .catch(err => {
       console.log(err);
@@ -133,7 +138,6 @@ router.delete("/:productId", (req, res, next) => {
   Product.remove({ _id: id })
     .exec()
     .then(result => {
-      console.log(`\n=== FROM DATABASE ===\n ${result}`);
       res.status(200).json(result);
     })
     .catch(err => {
